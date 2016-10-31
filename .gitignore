@@ -1,4 +1,4 @@
 .idea
 __pycache__
 
-Database/data/ns.db
+Data/ns.db
