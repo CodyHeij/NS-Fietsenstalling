@@ -21,6 +21,27 @@ def createDb():
     c.execute('''CREATE TABLE IF NOT EXISTS shed
              (id INTEGER PRIMARY KEY AUTOINCREMENT, bike_id INTEGER, user_id INTEGER, start_time, DATE, end_time DATE)''')
 
+def addUser(first_name='null', insertion='null', last_name='null', address='null', zip_code='null', city='null'):
+    c = conn.cursor()
+
+    try:
+        c.execute("INSERT INTO users (first_name, insertion, last_name, address, zip_code, city) "
+                  "VALUES ('"+str(first_name)+"','"+str(insertion)+"','"+str(last_name)+"','"+str(address)+"','"+str(zip_code)+"','"+str(city)+"')")
+        conn.commit()
+
+        return getUserByFirstAndLastName(first_name, last_name)
+    except:
+        return False
+
+def getUserByFirstAndLastName(first_name :str, last_name :str):
+    c = conn.cursor()
+    try:
+        c.execute("SELECT * FROM users WHERE first_name = '"+str(first_name)+"' AND last_name = '"+str(last_name)+"'")
+
+        return c.fetchall()
+    except:
+        return False
+
 def addBikeToUser(userId: int):
     c = conn.cursor()
 
@@ -51,27 +72,6 @@ def getBikesFromUser(userId: int):
         c.execute("SELECT * FROM bikes WHERE user_id = '" + str(userId) + "'")
 
         return c.fetchone()
-    except:
-        return False
-
-def addUser(first_name='null', insertion='null', last_name='null', address='null', zip_code='null', city='null'):
-    c = conn.cursor()
-
-    try:
-        c.execute("INSERT INTO users (first_name, insertion, last_name, address, zip_code, city) "
-                  "VALUES ('"+str(first_name)+"','"+str(insertion)+"','"+str(last_name)+"','"+str(address)+"','"+str(zip_code)+"','"+str(city)+"')")
-        conn.commit()
-
-        return getUserByFirstAndLastName(first_name, last_name)
-    except:
-        return False
-
-def getUserByFirstAndLastName(first_name :str, last_name :str):
-    c = conn.cursor()
-    try:
-        c.execute("SELECT * FROM users WHERE first_name = '"+str(first_name)+"' AND last_name = '"+str(last_name)+"'")
-
-        return c.fetchall()
     except:
         return False
 
