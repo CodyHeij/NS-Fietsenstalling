@@ -2,8 +2,9 @@ import sqlite3
 import string
 import random
 import time
+import os
 
-conn = sqlite3.connect('./Data/ns.db')
+conn = sqlite3.connect(str(os.path.dirname(__file__))+'/Data/ns.db')
 
 def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
