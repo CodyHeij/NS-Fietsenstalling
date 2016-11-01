@@ -1,29 +1,24 @@
 from Database import db
 
-# this needs to run once!
+from Functions import register
+from Functions import store
+from Functions import request
+from Functions import getInfo
+
 db.createDb()
 
-user = db.addUser(
-    'Lars',
-    'van',
-    'Kleef',
-    'Amerikalaan 199',
-    '3514BR',
-    'Utrecht'
-)
 
-print(user)
+# Register user part
+register.registerUser()
 
-# Add a bike to a user
-bike = db.addBikeToUser(user[0][0])
-print(bike)
+# Register a bike part
+register.registerBike()
 
-# Get a bike by uid ID
-bikeUid = db.getBikeByUid(bike[0])
-print(bikeUid[1])
+# Store a bike in the shed
+store.addBike()
 
-# # Add a bike to the shed
-if db.addBikeToShed(bikeUid[1], user[0][0]):
-    print('bike in shed')
-    if db.removeBikeFromShed(bikeUid[1]):
-        print('bike from shed')
+# Remove a bike form the shed
+request.getBike()
+
+# Get info part
+getInfo.init()
