@@ -30,6 +30,13 @@ def registerUser():
 
     return jsonify(user), 201
 
+@app.route('/api/user/id/<firstname>/<lastname>')
+def getUserId(firstname, lastname):
+    user = userController.getUser({'first_name': firstname,
+                                   'last_name': lastname})
+
+    return jsonify(user), 200
+
 @app.route('/api/bike/register', methods=['POST'])
 def registerBike():
     if not request.json or not 'user_id' in request.json:
@@ -41,7 +48,7 @@ def registerBike():
 
 @app.route('/api/shed/add', methods=['POST'])
 def addBikeToShed():
-    if not request.json or not 'bike_uid' in request.json or not 'user_id' in request.json:
+    if not request.json or not 'bike_uid' in request.json:
         abort(400)
 
     inshed = shedController.addBikeToShed(request.json)

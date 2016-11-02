@@ -20,7 +20,7 @@ def createDb():
              (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, insertion TEXT, last_name Text, address TEXT, zip_code TEXT, city TEXT, UNIQUE (first_name, last_name))''')
 
     c.execute('''CREATE TABLE IF NOT EXISTS shed
-             (id INTEGER PRIMARY KEY AUTOINCREMENT, bike_id INTEGER, user_id INTEGER, start_time DATE, end_time DATE)''')
+             (id INTEGER PRIMARY KEY AUTOINCREMENT, bike_id INTEGER, start_time DATE, end_time DATE)''')
 
 def addUser(first_name='null', insertion='null', last_name='null', address='null', zip_code='null', city='null'):
     c = conn.cursor()
@@ -76,12 +76,12 @@ def getBikesFromUser(userId):
     except:
         return False
 
-def addBikeToShed(bikeId, userId):
+def addBikeToShed(bikeId):
     c = conn.cursor()
     now = int(time.time())
 
     try:
-        c.execute("INSERT INTO shed (bike_id, user_id, start_time) VALUES ('"+str(bikeId)+"', '"+str(userId)+"', '"+str(now)+"')")
+        c.execute("INSERT INTO shed (bike_id, start_time) VALUES ('"+str(bikeId)+"', '"+str(now)+"')")
         conn.commit()
 
         return True
