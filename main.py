@@ -1,29 +1,62 @@
+from flask import *
 from Database import db
 
-from Functions import register
-from Functions import store
-from Functions import request
-from Functions import getInfo
+from Controllers import userController, bikeController, shedController
 
-def main():
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+@app.route('/bike/add')
+def addBike():
+    return render_template('add.html')
+
+@app.route('/bike/remove')
+def removeBike():
+    return render_template('remove.html')
+
+@app.route('/api/user/register', methods=['POST'])
+def registerUser():
+    if not request.json or not 'first_name' in request.json:
+        abort(400)
+
+    user = userController.addUser(request.json)
+
+    return jsonify(user), 201
+
+@app.route('/api/bike/register', methods=['POST'])
+def registerBike():
+    if not request.json or not 'user_id' in request.json:
+        abort(400)
+
+    bike = bikeController.addBikeToUser(request.json)
+
+    return jsonify(bike), 201
+
+@app.route('/api/shed/add', methods=['POST'])
+def addBikeToShed():
+    if not request.json or not 'bike_uid' in request.json or not 'user_id' in request.json:
+        abort(400)
+
+    inshed = shedController.addBikeToShed(request.json)
+
+    return jsonify(inshed), 201
+
+@app.route('/api/shed/remove', methods=['POST'])
+def removeBikeFromShed():
+    if not request.json or not 'bike_uid' in request.json:
+        abort(400)
+
+    outShed = shedController.removeBikeFromShed(request.json)
+
+    return jsonify(outShed), 201
+
+if __name__ == '__main__':
     db.createDb()
-
-    # Register user part
-    register.registerUser()
-
-    # Register a bike part
-    register.registerBike()
-
-    # Store a bike in the shed
-    store.addBike()
-
-    # Remove a bike form the shed
-    request.requestBike()
-
-    # Get info part
-    getInfo.init()
-
-    print("The application is started...")
-
-if __name__ == "__main__":
-    register.registerUser();
+    app.run(debug=True)

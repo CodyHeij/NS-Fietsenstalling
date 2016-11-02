@@ -2,8 +2,9 @@ import sqlite3
 import string
 import random
 import time
+import os
 
-conn = sqlite3.connect('./Data/ns.db')
+conn = sqlite3.connect(str(os.path.dirname(__file__))+'/Data/ns.db', check_same_thread = False)
 
 def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
@@ -19,7 +20,7 @@ def createDb():
              (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, insertion TEXT, last_name Text, address TEXT, zip_code TEXT, city TEXT, UNIQUE (first_name, last_name))''')
 
     c.execute('''CREATE TABLE IF NOT EXISTS shed
-             (id INTEGER PRIMARY KEY AUTOINCREMENT, bike_id INTEGER, user_id INTEGER, start_time, DATE, end_time DATE)''')
+             (id INTEGER PRIMARY KEY AUTOINCREMENT, bike_id INTEGER, user_id INTEGER, start_time DATE, end_time DATE)''')
 
 def addUser(first_name='null', insertion='null', last_name='null', address='null', zip_code='null', city='null'):
     c = conn.cursor()
@@ -77,9 +78,10 @@ def getBikesFromUser(userId):
 
 def addBikeToShed(bikeId, userId):
     c = conn.cursor()
+    now = int(time.time())
 
     try:
-        c.execute("INSERT INTO shed (bike_id, user_id, start_time) VALUES ('"+str(bikeId)+"', '"+str(userId)+"', '"+str(time.time())+"')")
+        c.execute("INSERT INTO shed (bike_id, user_id, start_time) VALUES ('"+str(bikeId)+"', '"+str(userId)+"', '"+str(now)+"')")
         conn.commit()
 
         return True
@@ -88,9 +90,10 @@ def addBikeToShed(bikeId, userId):
 
 def removeBikeFromShed(bikeId):
     c = conn.cursor()
+    now = int(time.time())
 
     try:
-        c.execute("UPDATE shed SET end_time = '"+str(time.time())+"' WHERE bike_id = '"+bikeId+"'")
+        c.execute("UPDATE shed SET end_time = '"+str(now)+"' WHERE bike_id = '"+bikeId+"'")
         conn.commit()
         return True
     except:

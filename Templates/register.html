@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NS-Fietsenstalling</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">NS-Fietsenstalling</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="/register">Registreren</a></li>
+            <li><a href="/bike/add">Stallen</a></li>
+            <li><a href="/bike/remove">Ophalen</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="row">
+      <form class="col-md-8" id="register">
+        <div class="alert alert-success" id="success" role="alert">
+          <p>Je account is aangemaakt. Veel stal plezier!</p>  
+        </div>
+        <div class="alert alert-danger" id="error" role="alert">
+          <p>Er is iets mis gegaan probeer het nog een keer. Blijft het probleem aan houden neem dan contact op met de ns help desk.</p>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label>Voornaam</label>
+          <input type="text" id="first_name" class="form-control" placeholder="Voornaam" required>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Tussenvoegsel</label>
+          <input type="text" id="middel_name" class="form-control" placeholder="Tussenvoegsel">
+        </div>
+        <div class="form-group col-md-4">
+          <label>Achternaam</label>
+          <input type="text" id="last_name" class="form-control" placeholder="Achternaam" required>
+        </div>
+        <div class="form-group col-md-7">
+          <label>Adress</label>
+          <input type="text" id="address" class="form-control" placeholder="Adress" required>
+        </div>
+        <div class="form-group col-md-4">
+          <label>Postcode</label>
+          <input type="text" id="zipcode" class="form-control" placeholder="Postcode" required>
+        </div>
+        <div class="form-group col-md-4">
+          <label>provincie</label>
+          <input type="text" id="city" class="form-control" placeholder="provincie" required>
+        </div>
+        <div class="form-group col-md-7">
+          <label>Opslaan</label>
+          <input type="submit" class="form-control btn-primary" value="Opslaan">
+        </div>
+      </form>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#success').hide();
+    $('#error').hide();
+
+    $("#register").submit(function(e){
+      $.ajax({
+        url: "/api/user/register",
+        type: "POST",
+        dataType: 'json',
+        contentType: "application/json",
+        data: JSON.stringify({
+          first_name: $('#first_name').val(),
+          middel_name: $('#middel_name').val(),
+          last_name: $('#last_name').val(),
+          address: $('#address').val(),
+          zipcode: $('#zipcode').val(),
+          city: $('#city').val()
+        }),
+        success: function( result ) {
+          if (result.success == 1) {
+            $('#success').fadeIn('slow').delay(3000).fadeOut('slow');
+          } else {
+            $('#error').fadeIn('slow').delay(3000).fadeOut('slow');
+          }
+        },
+        error: function() {
+          $('#error').fadeIn('slow').delay(3000).fadeOut('slow');
+        }
+      });
+      
+      return false
+    });
+  });
+</script>
+</body>
+</html>
