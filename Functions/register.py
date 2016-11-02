@@ -4,9 +4,11 @@ from Database import db
 def init():
     return True
 
+def registerUser(userData):
+    user = db.addUser("Younes", "bbb", "Bannany", "Tomaatstraat 46", "3552GC", "Utrecht")
+    registerBike(user[0], userData["bikeInfo"])
 
-def registerUser():
-    return True
 
-def registerBike():
+def registerBike(userId, bikeData):
+    bike = db.addBikeToUser(user)
     return True

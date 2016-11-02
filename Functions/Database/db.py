@@ -33,7 +33,7 @@ def addUser(first_name='null', insertion='null', last_name='null', address='null
     except:
         return False
 
-def getUserByFirstAndLastName(first_name :str, last_name :str):
+def getUserByFirstAndLastName(first_name, last_name):
     c = conn.cursor()
     try:
         c.execute("SELECT * FROM users WHERE first_name = '"+str(first_name)+"' AND last_name = '"+str(last_name)+"'")
@@ -42,7 +42,7 @@ def getUserByFirstAndLastName(first_name :str, last_name :str):
     except:
         return False
 
-def addBikeToUser(userId: int):
+def addBikeToUser(userId):
     c = conn.cursor()
 
     try:
@@ -55,7 +55,7 @@ def addBikeToUser(userId: int):
     except:
         print('Er is iets mis gegaan!')
 
-def getBikeByUid(uid: str):
+def getBikeByUid(uid):
     c = conn.cursor()
 
     try:
@@ -65,7 +65,7 @@ def getBikeByUid(uid: str):
     except:
         return False
 
-def getBikesFromUser(userId: int):
+def getBikesFromUser(userId):
     c = conn.cursor()
 
     try:
@@ -75,7 +75,7 @@ def getBikesFromUser(userId: int):
     except:
         return False
 
-def addBikeToShed(bikeId :str, userId :int):
+def addBikeToShed(bikeId, userId):
     c = conn.cursor()
 
     try:
@@ -86,7 +86,7 @@ def addBikeToShed(bikeId :str, userId :int):
     except:
         return False
 
-def removeBikeFromShed(bikeId :str):
+def removeBikeFromShed(bikeId):
     c = conn.cursor()
 
     try:
