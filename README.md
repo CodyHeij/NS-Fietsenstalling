@@ -58,5 +58,3 @@ Geeft True als het gelukt is en False als het mis gegaan is.
 Zet een eindtijd bij een fiets stalling zo dat hier na een tijd between kan worden uit gerekend.
 
 - bikeId (int)
-
-Test
