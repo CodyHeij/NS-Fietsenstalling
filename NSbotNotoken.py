@@ -59,7 +59,7 @@ def linking(bot, update):
     print(linkingActive)
     telegramID = update.message.chat_id
     stallingID = update.message.text
-    #ik weet nog niet wat de range is
+    #ik weet nog niet wat de range is, hangt af van hoe we dit gaan doen
     print(stallingID)
     try:
         stallingID = int(stallingID)
@@ -78,6 +78,7 @@ def linking(bot, update):
     
     
 def stoplinking(bot, update):
+    #voorkomt dat linken onbebert actief blijft
     linkingActive.remove(update.message.chat_id)
     update.message.reply_text("linken gestopt \n om account te linken gebuik dan /link")
     
@@ -101,7 +102,7 @@ def answer(bot, update):
 def why(bot, update):
     update.message.reply_text('Deze bot is gemaakt voor HU door\nOlivier Verwoerd\nLars van Kleef\nYounes Bannany\nCody heij\nJelle Dekker')
 def broadcast(bot, update):
-    #zogd dat de admin berichten kan sturen naar alle gebruikers
+    #zorgd dat de admin berichten kan sturen naar alle gebruikers
     if update.message.chat_id == adminid:
         print("ADMIN")
         broadcastMessage = update.message.text[11:]
@@ -123,6 +124,7 @@ def test(bot, update):
     
     
 def info(bot, update):
+    #laat de gebruiker zijn of haar info zien
     update.message.reply_text('info is send')
 
     
