@@ -1,4 +1,4 @@
-from database import db
+from Database import db
 
 def addBikeToUser(requestData):
     bike = db.addBikeToUser(

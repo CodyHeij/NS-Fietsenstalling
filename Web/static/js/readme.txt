@@ -1,0 +1,1 @@
+In deze folder kunnen alle javascript files toegevoegd worden

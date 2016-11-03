@@ -1,10 +1,13 @@
+# Note Younes Bannany: 
+# -- Werkend gemaakt, type verwijderd
+
 import sqlite3
 import string
 import random
 import time
 import os
 
-conn = sqlite3.connect(str(os.path.dirname(__file__))+'/data/ns.db', check_same_thread = False)
+conn = sqlite3.connect(str(os.path.dirname(__file__))+'/Data/ns.db', check_same_thread = False)
 
 def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))

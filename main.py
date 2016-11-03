@@ -1,25 +1,24 @@
+# Note Younes Bannany: De initialize basis
+# -- Flask toegevoegd
+# -- Static routing toegevoegd, Web folder toegevoegd
+# -- Favicon toegevoegd
+# -- Rest api basis toegevoegd
+
+
 from flask import *
-from database import db
+from Database import db
 
-from controllers import userController, bikeController, shedController
+from Controllers import userController, bikeController, shedController
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return send_from_directory('Web/static', "index.html")
 
-@app.route('/register')
-def register():
-    return render_template('register.html')
-
-@app.route('/bike/add')
-def addBike():
-    return render_template('add.html')
-
-@app.route('/bike/remove')
-def removeBike():
-    return render_template('remove.html')
+@app.route('/static/<path:path>')
+def resolveStaticFiles(path):
+    return send_from_directory('Web/static', path)
 
 @app.route('/api/user/register', methods=['POST'])
 def registerUser():
@@ -66,4 +65,4 @@ def removeBikeFromShed():
 
 if __name__ == '__main__':
     db.createDb()
-    app.run(host="0.0.0.0", debug=True)
+    app.run(debug=True)
