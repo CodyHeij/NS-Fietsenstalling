@@ -1,4 +1,4 @@
-from Database import db
+from database import db
 
 def addBikeToShed(requestData):
     return db.addBikeToShed(requestData['bike_uid'])
