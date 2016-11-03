@@ -1,24 +1,27 @@
 # Note Younes Bannany: De initialize basis
 # -- Flask toegevoegd
-# -- Static routing toegevoegd, Web folder toegevoegd
+# -- Static routing toegevoegd, web folder toegevoegd
 # -- Favicon toegevoegd
 # -- Rest api basis toegevoegd
 
+# Note Lars Van Kleef: Tweede versie
+# -- Api uitgebreid met controller
+# -- Api verder gemaakt
 
 from flask import *
-from Database import db
+from database import db
 
-from Controllers import userController, bikeController, shedController
+from controllers import userController, bikeController, shedController
 
 app = Flask(__name__, static_url_path='')
 
 @app.route('/')
 def index():
-    return send_from_directory('Web/static', "index.html")
+    return send_from_directory('web/static', "index.html")
 
 @app.route('/static/<path:path>')
 def resolveStaticFiles(path):
-    return send_from_directory('Web/static', path)
+    return send_from_directory('web/static', path)
 
 @app.route('/api/user/register', methods=['POST'])
 def registerUser():

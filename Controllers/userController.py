@@ -1,6 +1,14 @@
-from Database import db
+# Note Younes Bannany: De initialize basis
+# -- Eerste opzet neer zetten van de logica
+
+# Note Lars Van Kleef: Tweede versie
+# -- Verder verwerken van de data
+# -- Success tokens toegevoegd aan response
+
+from database import db
 
 def addUser(requestData):
+    '''Een gebruiker toevoegen aan de database en hier meteen een fiets aan koppelen.'''
     try:
         user = db.addUser(
             requestData['first_name'],
@@ -11,11 +19,12 @@ def addUser(requestData):
             requestData['city']
         )
 
+        # Meteen een eerste fiets aan een nieuwe gebruiker toevoegen.
         bike = db.addBikeToUser(user[0][0])
 
         return {
             'success': 1,
-                'bike_uid': bike[0],
+            'bike_uid': bike[0],
             'user_id': int(user[0][0]),
             'first_name': user[0][1],
             'middel_name': user[0][2],
@@ -30,6 +39,7 @@ def addUser(requestData):
         }
 
 def getUser(requestData):
+    '''Een gebruiker uit het systeem ophalen met een voor naam een achternaam'''
     try:
         user = db.getUserByFirstAndLastName(requestData['first_name'], requestData['last_name'])
 
