@@ -1,7 +1,7 @@
 from flask import *
-from Database import db
+from database import db
 
-from Controllers import userController, bikeController, shedController
+from controllers import userController, bikeController, shedController
 
 app = Flask(__name__)
 
@@ -66,4 +66,4 @@ def removeBikeFromShed():
 
 if __name__ == '__main__':
     db.createDb()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
