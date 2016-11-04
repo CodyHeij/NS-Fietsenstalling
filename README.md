@@ -19,6 +19,8 @@ datum/tijd en jouw naam. Zet deze informatie in een CSV-bestand of gebruik een S
 informatie (toegankelijk voor iedereen) en persoonlijke informatie (alleen toegankelijk voor de
 eigenaar van de fiets).
 
+**MOET NOG GEMAAKT WORDEN**
+
 ###Algemeen
     - Hoeveel plek is er nog? **end point aan gemaakt**
     - Hoeveel kost de stalling
@@ -26,10 +28,10 @@ eigenaar van de fiets).
 ###Inloggen?
     - Mijn gegevens **end point is aan gemaakt**
     - Mijn fiets(en) **end point is aan gemaakt**
-    - Mijn stallingen
+    - Mijn stallingen van mijn fiets **end point is aan gemaakt**
 
 **Ophalen:** Als je je fiets wilt ophalen wordt gecontroleerd of jij als eigenaar wel bekend bent en
 wordt ook gecontroleerd of het nummer van de fiets wel hoort bij jou als eigenaar. Elke eigenaar
-heeft maar één fiets en over de betaling hoef je je niet druk te maken bij deze opdrach
+heeft maar **één fiets** (In ons systeem zou een gebruiker meerder fietsen kunnen hebben) en over de betaling hoef je je niet druk te maken bij deze opdracht
 
 **Dit werkt**

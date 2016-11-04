@@ -21,10 +21,12 @@ def index():
 
 @app.route('/static/<path:path>')
 def resolveStaticFiles(path):
+    '''Laat de website zien'''
     return send_from_directory('web/static', path)
 
 @app.route('/api/user/register', methods=['POST'])
 def registerUser():
+    '''Registeer een gebruiker in het systeem'''
     if not request.json or not 'first_name' in request.json:
         abort(400)
 
@@ -35,6 +37,7 @@ def registerUser():
 
 @app.route('/api/user/id/<firstname>/<lastname>')
 def getUserId(firstname, lastname):
+    '''Vind de gebruiker door middel van zijn voor en achternaam'''
     user = userController.getUser({
         'first_name': firstname,
         'last_name': lastname
@@ -45,7 +48,7 @@ def getUserId(firstname, lastname):
 
 @app.route('/api/user/bikes/<userId>')
 def getBiksById(userId):
-    '''Get all the bikes from the user'''
+    '''Bekijk alle fietsen van een gebruiker'''
     bikes = userController.getBikes({
         'user_id': userId
     })
@@ -81,7 +84,7 @@ def addBikeToShed():
 
     inshed = shedController.addBikeToShed(request.json)
 
-    return jsonify(inshed), 201
+    return jsonify(inshed), 200
 
 @app.route('/api/shed/remove', methods=['POST'])
 def removeBikeFromShed():
@@ -91,11 +94,13 @@ def removeBikeFromShed():
 
     outShed = shedController.removeBikeFromShed(request.json)
 
-    return jsonify(outShed), 201
+    print(outShed)
+
+    return jsonify(outShed), 200
 
 @app.route('/api/places')
 def getShedPlaces():
-    '''Kijk hoeveel stal plaatsen er nog over zijn er zijn er in totaal 1500'''
+    '''Kijk hoeveel stal plaatsen er nog over zijn het zijn er in totaal 1500'''
     places = shedController.getFreePlaces()
 
     return jsonify(places), 200

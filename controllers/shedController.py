@@ -25,13 +25,17 @@ def addBikeToShed(requestData):
 def removeBikeFromShed(requestData):
     '''Verwerken en terug geven van True en False als de data verwerkt is'''
     user = db.getUserByFirstAndLastName(requestData['first_name'], requestData['last_name'])
-
     if db.addFreePlace() == True:
         try:
             if len(user) >= 1:
-                bike = db.getBikeByUserId(user[0][0])
+                bikes = db.getBikesFromUser(user[0][0])
 
-                if len(bike) >= 1:
+                bikeList = []
+
+                for bike in bikes:
+                    bikeList.append(bike[1])
+
+                if len(bikes) >= 1 and requestData['bike_uid'] in bikeList:
                     return db.removeBikeFromShed(requestData['bike_uid'])
 
                 return False
