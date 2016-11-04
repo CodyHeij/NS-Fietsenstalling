@@ -123,6 +123,8 @@ def removeBikeFromShed(bikeId):
     try:
         c.execute("UPDATE shed SET end_time = datetime("+str(now)+", 'unixepoch', 'localtime') WHERE bike_id = '"+str(bikeId)+"' AND end_time = 'NULL'")
         conn.commit()
+
+        print('veranderd')
         return True
 
     except:
@@ -172,7 +174,6 @@ def addFreePlace():
 def getShedHistory(bikeId):
     '''Bekijk alle stallingen van vroeger'''
     c = conn.cursor()
-
 
     c.execute("SELECT * FROM shed WHERE id = '"+str(bikeId)+"'")
     return c.fetchall()

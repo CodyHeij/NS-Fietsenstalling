@@ -89,7 +89,7 @@
         data: JSON.stringify({
           first_name: $('#first_name').val().toLowerCase(),
           last_name: $('#last_name').val().toLowerCase(),
-          bike_uid: $('#bike_uid').val()
+          bike_uid: $('#bike_uid').val().trim()
         }),
         success: function( result ) {
           if (result == true) {

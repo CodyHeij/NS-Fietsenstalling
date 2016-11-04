@@ -46,6 +46,10 @@
       </div>
 
       <div class="col-md-4">
+        <h2>Vrije plaatsen in de stalling</h2>
+        <div>
+          <h2 id="plaatsen"></h2>
+        </div>
         <h2>Prijzen</h2>
         <p>Betalen per minuut: €0.05</p>
       </div>
@@ -54,5 +58,22 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $.ajax({
+      url: "/api/places",
+      type: "GET",
+      dataType: 'json',
+      contentType: "application/json",
+      success: function( result ) {
+        $("#plaatsen").first().text(result.places)
+      },
+      error: function() {
+        console.log('foutje')
+      }
+    });
+  })
+</script>
 </body>
 </html>

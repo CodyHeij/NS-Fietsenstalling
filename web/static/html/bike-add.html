@@ -77,7 +77,7 @@
         dataType: 'json',
         contentType: "application/json",
         data: JSON.stringify({
-          bike_uid: $('#bike_uid').val()
+          bike_uid: $('#bike_uid').val().trim()
         }),
         success: function( result ) {
           if (result == true) {
