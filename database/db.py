@@ -158,8 +158,9 @@ def addFreePlace():
         places = c.fetchall()
         if len(places) >= 1:
             counter = int(places[0][1])
-            c.execute("UPDATE places SET places = '"+str(counter - 1) +"' WHERE id = 1")
-            conn.commit()
+            if not counter <= 0:
+                c.execute("UPDATE places SET places = '"+str(counter - 1) +"' WHERE id = 1")
+                conn.commit()
         else:
             c.execute("INSERT INTO places (places) VALUES (0)")
             conn.commit()
