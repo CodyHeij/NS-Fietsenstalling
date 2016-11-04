@@ -36,6 +36,9 @@ def createDb():
     c.execute('''CREATE TABLE IF NOT EXISTS places
              (id INTEGER PRIMARY KEY AUTOINCREMENT, places BIGINT)''')
 
+    c.execute('''INSERT INTO places (places) VALUES (0)''')
+    conn.commit()
+
 
 def addUser(first_name='null', insertion='null', last_name='null', address='null', zip_code='null', city='null'):
     '''Met deze functie kun je een gebruiker aanmaken'''
