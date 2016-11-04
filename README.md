@@ -20,16 +20,16 @@ informatie (toegankelijk voor iedereen) en persoonlijke informatie (alleen toega
 eigenaar van de fiets).
 
 ###Algemeen
-    - Hoeveel plek is er nog?
+    - Hoeveel plek is er nog? **end point aan gemaakt**
     - Hoeveel kost de stalling
 
 ###Inloggen?
-    - Mijn gegevens
-    - Mijn fiets(en)
+    - Mijn gegevens **end point is aan gemaakt**
+    - Mijn fiets(en) **end point is aan gemaakt**
     - Mijn stallingen
 
 **Ophalen:** Als je je fiets wilt ophalen wordt gecontroleerd of jij als eigenaar wel bekend bent en
 wordt ook gecontroleerd of het nummer van de fiets wel hoort bij jou als eigenaar. Elke eigenaar
 heeft maar één fiets en over de betaling hoef je je niet druk te maken bij deze opdrach
 
-**Hier moet nog gecontroleerd worden of jij wel jij bent.**
+**Dit werkt**

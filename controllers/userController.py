@@ -4,8 +4,11 @@
 # Note Lars Van Kleef: Tweede versie
 # -- Verder verwerken van de data
 # -- Success tokens toegevoegd aan response
+# -- Bikes get bikes functie toegevoegd
 
 from database import db
+from flask import jsonify
+
 
 def addUser(requestData):
     '''Een gebruiker toevoegen aan de database en hier meteen een fiets aan koppelen.'''
@@ -38,6 +41,7 @@ def addUser(requestData):
             'success': 0
         }
 
+
 def getUser(requestData):
     '''Een gebruiker uit het systeem ophalen met een voor naam een achternaam'''
     try:
@@ -58,3 +62,19 @@ def getUser(requestData):
         return {
             'success': 0
         }
+
+
+def getBikes(requestData):
+    bikes = db.getBikesFromUser(requestData['user_id'])
+    bikesList = []
+
+    for bike in bikes:
+        bikeDict = {}
+        bikeDict.update({
+            'bike_id': bike[0],
+            'bike_uid': bike[1],
+            'user_id': bike[-1]
+        })
+        bikesList.append(bikeDict)
+
+    return bikesList

@@ -4,6 +4,7 @@
 
 from database import db
 
+
 def addBikeToUser(requestData):
     '''Fiets toevoegen aan een gebruiker'''
     bike = db.addBikeToUser(
