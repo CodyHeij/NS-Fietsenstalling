@@ -12,7 +12,7 @@ def addBikeToShed(requestData):
 
         try:
             if len(bike) >= 1:
-                return db.addBikeToShed(requestData['bike_uid'])
+                return db.addBikeToShed(bike[0])
 
             return False
 
@@ -36,7 +36,8 @@ def removeBikeFromShed(requestData):
                     bikeList.append(bike[1])
 
                 if len(bikes) >= 1 and requestData['bike_uid'] in bikeList:
-                    return db.removeBikeFromShed(requestData['bike_uid'])
+                    bike = db.getBikeByUid(requestData['bike_uid'])
+                    return db.removeBikeFromShed(bike[0])
 
                 return False
 
@@ -49,9 +50,22 @@ def removeBikeFromShed(requestData):
 
 def getShedHistory(requestData):
     '''Geeft een overzicht van alle keren dat een gebruiker zijn fiets heeft gestald in de fiets stalling'''
-    shedHistory = db.getShedHistory(requestData['user_id'])
+    bike = db.getBikeByUid(requestData['bike_uid'])
+    shedHistory = db.getShedHistory(bike[0])
 
-    return shedHistory
+    shedHistoryList = []
+
+    for item in shedHistory:
+        itemDict = {}
+        itemDict.update({
+            'id': item[0],
+            'bike_id': item[1],
+            'start_time': item[2],
+            'end_time': item[3]
+        })
+        shedHistoryList.append(itemDict)
+
+    return shedHistoryList
 
 def getFreePlaces():
     '''Geeft terug hoeveel vrije plekken er nog zijn in de stalling'''

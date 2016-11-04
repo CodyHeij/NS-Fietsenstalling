@@ -107,7 +107,7 @@ def addBikeToShed(bikeId):
     now = int(time.time())
 
     try:
-        c.execute("INSERT INTO shed (bike_id, start_time, end_time) VALUES ('"+str(bikeId)+"', '"+str(now)+"', 'NULL')")
+        c.execute("INSERT INTO shed (bike_id, start_time, end_time) VALUES ('"+str(bikeId)+"', datetime("+str(now)+", 'unixepoch', 'localtime'), 'NULL')")
         conn.commit()
         return True
 
@@ -121,7 +121,7 @@ def removeBikeFromShed(bikeId):
     now = int(time.time())
 
     try:
-        c.execute("UPDATE shed SET end_time = '"+str(now)+"' WHERE bike_id = '"+bikeId+"'")
+        c.execute("UPDATE shed SET end_time = datetime("+str(now)+", 'unixepoch', 'localtime') WHERE bike_id = '"+str(bikeId)+"' AND end_time = 'NULL'")
         conn.commit()
         return True
 
@@ -168,15 +168,13 @@ def addFreePlace():
     except:
         return False
 
-def getShedHistory(bikeUid):
+def getShedHistory(bikeId):
     '''Bekijk alle stallingen van vroeger'''
     c = conn.cursor()
 
-    try:
-        c.execute("SELECT * FROM shed WHERE bike_uid = '"+bikeUid+"'")
-        return c.fetchall()
-    except:
-        return False
+
+    c.execute("SELECT * FROM shed WHERE id = '"+str(bikeId)+"'")
+    return c.fetchall()
 
 def getPlaces():
     '''bekijk hoeveel plaatsen er nog zijn'''

@@ -62,19 +62,3 @@ def getUser(requestData):
         return {
             'success': 0
         }
-
-
-def getBikes(requestData):
-    bikes = db.getBikesFromUser(requestData['user_id'])
-    bikesList = []
-
-    for bike in bikes:
-        bikeDict = {}
-        bikeDict.update({
-            'bike_id': bike[0],
-            'bike_uid': bike[1],
-            'user_id': bike[-1]
-        })
-        bikesList.append(bikeDict)
-
-    return bikesList

@@ -49,7 +49,7 @@ def getUserId(firstname, lastname):
 @app.route('/api/user/bikes/<userId>')
 def getBiksById(userId):
     '''Bekijk alle fietsen van een gebruiker'''
-    bikes = userController.getBikes({
+    bikes = bikeController.getBikes({
         'user_id': userId
     })
 
@@ -57,10 +57,10 @@ def getBiksById(userId):
 
 
 @app.route('/api/bike/shedhistroy/<bikeUid>')
-def getShedHistory(userId):
+def getShedHistory(bikeUid):
     '''bekijk het verleden van een fiets'''
     shedHistory = shedController.getShedHistory({
-        'user_id': userId
+        'bike_uid': bikeUid
     })
 
     return jsonify(shedHistory), 200
@@ -93,8 +93,6 @@ def removeBikeFromShed():
         abort(400)
 
     outShed = shedController.removeBikeFromShed(request.json)
-
-    print(outShed)
 
     return jsonify(outShed), 200
 

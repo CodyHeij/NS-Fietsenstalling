@@ -38,9 +38,61 @@
         </div>
       </div>
     </nav>
+
+    <div class="row">
+      <form id="his" class="col-md-8">
+        <h2>Historie bekijken</h2>
+        <div class="alert alert-danger" id="error" role="alert">
+          <p>Je fiets label is niet herkend.</p>
+        </div>
+
+        <div class="form-group col-md-8">
+          <label>Fiets label</label>
+          <input type="text" id="bike_uid" class="form-control" placeholder="Fiets label" required>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label>Bekijken</label>
+          <input type="submit" class="form-control btn-primary" value="Bekijken">
+        </div>
+      </form> 
+    </div>
+
+    <div id="history"></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#error').hide();
+
+    $("#his").submit(function(e){
+      $.ajax({
+        url: "/api/bike/shedhistroy/"+ $('#bike_uid').val(),
+        type: "GET",
+        dataType: 'json',
+        contentType: "application/json",
+        success: function( result ) {
+          result.forEach(function(item) {
+            var a = moment(item.end_time);
+            var b = moment(item.start_time);
+            var diff = a.diff(b, 'minutes')
+
+            console.log(diff)
+                        
+            $('<ul class="list-group"><li class="list-group-item">Stal datum: '+a.format("MM-DD-YYYY HH:mm:ss")+'</li><li class="list-group-item">Uit check datatum: '+b.format("MM-DD-YYYY HH:mm:ss")+'</li><li class="list-group-item">Minuten gestald: '+diff+'</li></ul>').appendTo('#history')
+          })
+        },
+        error: function() {
+          $('#error').fadeIn('slow').delay(3000).fadeOut('slow');
+        }
+      });
+
+      return false
+    });
+  })
+</script>
 </body>
 </html>
